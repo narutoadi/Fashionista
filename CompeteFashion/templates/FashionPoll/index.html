@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head>
+	<title>Fashion Poll</title>
+	<link rel="stylesheet" href="{% static "FashionPoll/css/styleIndex.css" %}" /> <!-- CSS -->
+</head>
+<body>
+<h3>&nbsp &nbsp &nbsp Fashionista</h3>
+<div class="dynamic">
+	<div style="float:left;width:45%;" >
+		<br/><br/><br/><br/>
+		<h1 style="color:rgb(0,180,0);">&nbsp &nbsp &nbsp Compete Fashion</h1>
+		<h2>&nbsp &nbsp &nbsp Fashionista is home to all kinds of Fashion lovers,</h2>
+		<h2>&nbsp &nbsp &nbsp from kids to Adults.</h2>
+		<br/><br/><br/><br/>
+	</div>
+	{% if user.is_authenticated %}
+		<div style="float:right;width:45%;">
+			<h2>Welcome {{ user.first_name }} !!</h2>
+			<a href="/FashionPoll/logout">Logout</a>
+		</div>
+	{% else %}
+		<div class="boxclass" id="boxid" style="float:right;width:30%;">
+			<p>Already a user!</p>
+			<div class="loginclass">
+			<a href="/FashionPoll/login/"  > Login Here</a>
+			</div>
+			<div>
+			<p>New to the site!</p>
+			</div>
+			<div class="registerclass">
+			<a href="/FashionPoll/register/" > Register Here</a>
+			</div>
+		</div>
+	{% endif %}
+<div style="clear:both; font-size:1px;"></div>
+<div>
+	<br/><br/><br/><br/>
+	<br/><br/><br/>
+	<br/>
+	<h2>&nbsp &nbsp &nbspRegister yourself and get started!</h2>
+</div>	
+</div>
+
+</body>
+</html>

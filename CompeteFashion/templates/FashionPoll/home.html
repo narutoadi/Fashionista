@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<title>Fashion Poll</title>
+	<link rel="stylesheet" href="{% static "FashionPoll/css/styleHome.css" %}" /> <!-- CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="{% static "FashionPoll/js/jquery.js" %}"></script> <!-- JavaScript -->
+</head>
+<body>
+<h3>&nbsp &nbsp &nbsp Fashionista &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp <a href="/FashionPoll/home">Home</a>&nbsp &nbsp &nbsp<a href="/FashionPoll/home">Profile</a>&nbsp &nbsp &nbsp <a href="/FashionPoll/logout">Logout</a> </h3>
+<div class="dynamic">
+	{% if user.is_authenticated %}
+		<div style="float:left;width:17%;">
+			<p>Welcome {{ user.first_name }} !!</p>
+			{% for up in uprofile %}
+			<p><img src="{{ MEDIA_URL }}{{ up.profile_picture }}" alt="No Profile Picture" border=1 height=100px width=100px></img></p>
+			<p> Dob: {{ up.dob }} </p>
+			<p> {{ up.phone_number }}</p>
+			{% endfor %}
+			<p> Edit Profile </p>
+			{% if uparticipation %}
+			<p> Your Fashionita details <p>
+			{% for part in uparticipation %}
+			<table border="1">
+			<tr><td><img src="{{ MEDIA_URL }}{{ part.fashionista_picture }}" alt="xyz" border=1 height=100px width=100px></img></td></tr>
+			<tr><td> {{ part.title }} </td></tr>
+			<tr><td> Likes: {{ part.likes }} </td></tr>
+			</table>
+			{% endfor %}
+			{% else %}
+			<p> Participate in Fashionista! <p>
+			{% endif %}
+		</div>
+		<div style="float:right;width:77%;">
+			<p> Contribute to the fashion poll by liking one of the 2 pictures! </p>
+			{% if fList %}
+				<table border="1">
+					<tr>
+						{% for element in fList %}
+						<td>{{ element.user.first_name }} {{ element.user.last_name }}</td>
+						{% endfor %}
+					</tr>
+					<tr>
+						{% for element in fList %}
+						<td><img src="{{ MEDIA_URL }}{{ element.fashionista_picture }}" alt="{{ element.fashionista_picture }}" border=3 height=450px width=420px></img></td>
+						{% endfor %}
+					</tr>
+					<tr>
+						{% for element in fList %}
+						<td>{{ element.title }}</td>
+						{% endfor %}
+					</tr>
+				</table>
+			{% else %}
+				<strong>There are not enough competitiors!</strong>
+			{% endif %}
+		</div>
+	{% else %}
+		<div> Nothing for you here :p </div>
+	{% endif %}
+</div>
+
+</body>
+</html>

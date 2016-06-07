@@ -1,0 +1,49 @@
+
+.dynamic { 
+  background-image: url("images/Fashionista-boy-1.jpg");
+  background-repeat: repeat-x;
+}
+
+.boxclass{
+	background-color: white;
+	margin-top: 2%;
+	margin-right: 2%;
+	opacity: 0.6;
+	padding-left: 10px;
+    border-style: solid;
+    border-color: white;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    height: 250px;
+}
+.loginclass{
+	text-align: center;
+	border-style: solid;
+    border-color: white;	
+    border-spacing:5%;
+    background: white;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+.registerclass{
+	text-align: center;
+	border-style: solid;
+    border-color: white;
+    border-spacing:5%;
+    background: white;
+    margin-right: 10%;
+    margin-bottom: 10%;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+p{
+	color: gray;
+}
+a{
+	color:rgb(0,200,0);
+}
+h2{
+	color: gray;
+}
