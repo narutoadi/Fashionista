@@ -1,16 +1,25 @@
 $(document).ready(function() {
-    $('#xyz').click(function(){
-        var options = {
-            chart: {
-                renderTo: 'container',
-                type: 'spline'
-            },
-            series: [{}]
-        };
-        var username1 = $('#username').attr("username");
-        $.get('/FashionPoll/graph/',{ username : username1 } function(data) {
-            options.series[0].data = data;
-            var chart = new Highcharts.Chart(options);
-        });
+
+    // time vs like graph
+     var graph = {
+        chart: {
+            renderTo: 'container',
+            type: 'line',
+        },
+        legend: {enabled: false},
+        title: {text: 'Time vs Like Graph'},
+        subtitle: {text: 'from starting of competition'},
+        xAxis: {type: 'datetime', dateTimeLabelFormats:{ month:'%e.%b', year:'%b' }, labels: {rotation: -45}},
+        yAxis: {title: {text: null}},
+        series: [{}],
+    };
+    var uname = $('#username').attr("uname");
+    var graphUrl = "/FashionPoll/graph/"+uname+"/";
+    $.getJSON(graphUrl,
+        function(data) {
+            graph.series[0].name = 'Likes';
+            graph.series[0].data = data;
+            var chart = new Highcharts.Chart(graph);
     });
-});
+
+} );

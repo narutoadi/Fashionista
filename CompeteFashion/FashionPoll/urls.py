@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^like-picture/$', views.like_picture, name='like-picture'),
     url(r'^rank-list/$', views.rank_list, name='rank-list'),
     url(r'^user/(?P<username>[\w.@+-]+)/$', views.show_profile, name='show-profile'),
-    url(r'^graph/$', views.graph, name='graph'),
+    url(r'^graph/(?P<username>[\w.@+-]+)/$', views.graph, name='graph'),
 ]

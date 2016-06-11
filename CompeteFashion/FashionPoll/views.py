@@ -7,7 +7,9 @@ from django.contrib.auth.decorators import login_required
 from FashionPoll.models import Fashionista, UserProfile, Order
 from django.contrib.auth.models import User
 from django.core import serializers
+from datetime import datetime
 import json
+import datetime
 # Create your views here.
 def index(request):
 	context_dict = {}
@@ -181,7 +183,7 @@ def like_picture(request):
 		unliked_id = request.GET['unliked']
 		unliked = User.objects.get(id = unliked_id)
 		pic_id = request.GET['pic_id1']
-		instance = Order(liker = liker, liked = liked, unliked = unliked)
+		instance = Order(liker = liker, liked = liked, unliked = unliked, created_at = datetime.now())
 		instance.save()
 	else:
 		print("dipchik")
@@ -268,21 +270,34 @@ def show_profile(request, username):
 	context_dict = {'user1' : user1, 'user1_profile' : user1_profile, 'user1_fashionista' : user1_fashionista, }
 	return render(request, 'FashionPoll/show_profile.html',context_dict)
 
-def graph(request):
+def graph(request,username):
 	print("Graph is working")
-	username1 = request.GET['username']
+	username1 = username
 	user = User.objects.get(username = username1)
 	obj1 = Order.objects.filter(liked = user).order_by('created_at')
-	obj2 = obj1.objects.value_list('created_at')
-
-	s = "["
-	val = 1
+	obj2 = obj1.values_list('created_at')
+	data = []
+	count = 1
 	for element in obj2:
-		s = s + "["+element+","+val+"],"
-		val = val+1
-	s = s+"]"
-	print(s)
-	s = json.dumps(s)
+		x=[]
+		a = element[0]
+		print("a = ")
+		print(a)
+		a1 = datetime.datetime(a.year,a.month,a.day,a.hour,a.minute,a.second)
+		print("a1 = ")
+		print(a1)
+		b = datetime.datetime(1970,1,1,0,0,0,)
+		print("b = ")
+		print(b)
+		c = (a1-b).total_seconds()
+		d = int(c*1000)
+		x.append(d)
+		x.append(count)
+		count = count+1
+		data.append(x)
+
+	print(data)
+	s = json.dumps(data)
 	print(s)
 	return HttpResponse(s, content_type = "application/json")
 

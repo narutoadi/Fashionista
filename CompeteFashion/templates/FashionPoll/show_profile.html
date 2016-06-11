@@ -20,7 +20,7 @@
 			<td><img src="{{ MEDIA_URL }}{{ user1_profile.profile_picture }}" alt="{{ user1.first_name }}'s profile picture" border=1 height=200px width=200px></img></td>
 		</tr>
 		<tr>
-			<td id="username" username="{{ user1.username }}"> Username: {{ user1.username }} </td>
+			<td id="username" uname="{{ user1.username }}"> Username: {{ user1.username }} </td>
 		</tr>
 		<tr>
 			<td> DOB: {{ user1_profile.dob }} </td>
@@ -45,7 +45,7 @@
 				<td> Rating: {{ user1_fashionista.rating }} </td>
 			</tr>
 			<tr>
-				<td><b id="xyz"> CLick me </b> <div id="container" style="width:100%; height:400px;"></div> </td>
+				<td> <div id="container" style="width:100%; height:400px;"></div> </td>
 			</tr>
 		{% else %}
 			<tr>
