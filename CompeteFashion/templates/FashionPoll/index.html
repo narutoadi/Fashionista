@@ -7,13 +7,13 @@
 	<link rel="stylesheet" href="{% static "FashionPoll/css/styleIndex.css" %}" /> <!-- CSS -->
 </head>
 <body>
-<h3>&nbsp &nbsp &nbsp Fashionista</h3>
+<h3>&nbsp &nbsp &nbsp <a href="/FashionPoll/"> Fashionista </a></h3>
 <div class="dynamic">
 	<div style="float:left;width:45%;" >
 		<br/><br/><br/><br/>
 		<h1 style="color:rgb(0,180,0);">&nbsp &nbsp &nbsp Compete Fashion</h1>
-		<h2>&nbsp &nbsp &nbsp Fashionista is home to all kinds of Fashion lovers,</h2>
-		<h2>&nbsp &nbsp &nbsp from kids to Adults.</h2>
+		<h1 style="color:rgb(0,180,0);">&nbsp &nbsp &nbsp Feel Fashion</h1>
+		<h1 style="color:rgb(0,180,0);">&nbsp &nbsp &nbsp Vote Fashion</h1>
 		<br/><br/><br/><br/>
 	</div>
 	{% if user.is_authenticated %}
@@ -39,7 +39,6 @@
 <div>
 	<br/><br/><br/><br/>
 	<br/><br/><br/>
-	<br/>
 	<h2>&nbsp &nbsp &nbspRegister yourself and get started!</h2>
 </div>	
 </div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FashionPoll Edit-Profile</title>
+	</head>
+	<body>
+		<h1> Edit Profile! </h1>
+		<a href="/FashionPoll/home">Return to the homepage.</a><br />
+		{% if edited %}
+		<strong>Thank you for Editing!</strong>
+		{% else %}
+		<strong>Edit here!</strong><br />
+
+		<form id="user_form" method="post" action="/FashionPoll/edit-profile/" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" name="submit" value="done" />
+		</form>
+		{% endif %}
+	</body>
+</html>

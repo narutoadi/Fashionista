@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Fashionista Participation</title>
+	</head>
+	<body>
+		<h1> Participate in Fashionista </h1>
+		<a href="/FashionPoll/home">Return to the homepage.</a><br />
+		{% if registered %}
+		<strong>Thank you for participating!</strong>
+		{% else %}
+		<strong>Register here!</strong><br />
+
+		<form method="post" action="/FashionPoll/participate/" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" name="submit" value="submit" />
+		</form>
+		{% endif %}
+	</body>
+</html>

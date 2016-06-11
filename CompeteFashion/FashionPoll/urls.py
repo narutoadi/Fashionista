@@ -9,4 +9,9 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^home/$', views.home, name='home'),
     url(r'^participate/$', views.participate, name='participate'),
+    url(r'^edit-profile/$', views.edit_profile, name='edit-profile'),
+    url(r'^like-picture/$', views.like_picture, name='like-picture'),
+    url(r'^rank-list/$', views.rank_list, name='rank-list'),
+    url(r'^user/(?P<username>[\w.@+-]+)/$', views.show_profile, name='show-profile'),
+    url(r'^graph/$', views.graph, name='graph'),
 ]

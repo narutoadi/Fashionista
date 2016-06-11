@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<title>Fashion Poll</title>
+	<link rel="stylesheet" href="{% static "FashionPoll/css/styleHome.css" %}" /> <!-- CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="{% static "FashionPoll/js/jquery.js" %}"></script> <!-- JavaScript -->
+</head>
+<body>
+<h3>&nbsp &nbsp &nbsp <a href="/FashionPoll/"> Fashionista </a> &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp <a href="/FashionPoll/home">Home</a>&nbsp &nbsp &nbsp<a href="/FashionPoll/home">Profile</a>&nbsp &nbsp &nbsp <a href="/FashionPoll/rank-list">Rank-List</a>&nbsp &nbsp &nbsp <a href="/FashionPoll/logout">Logout</a>  </h3>
+<table border="1">
+	<tr>
+		<th>Username</th>
+		<th>Name</th>
+		<th>Rating</th>
+		<th>Likes</th>
+		<th>views</th>
+	</tr>
+	{% for element in flist %}
+		<tr>
+			<td><a href="/FashionPoll/user/{{ element.user.username }}">{{ element.user.username }}</a></td>
+			<td>{{ element.user.first_name }} {{ element.user.last_name }} </td>
+			<td>{{ element.rating }}</td>
+			<td>{{ element.likes }}</td>
+			<td>{{ element.views }}</td>
+		</tr>
+	{% endfor %}
+</table>
+</body>
+</html>

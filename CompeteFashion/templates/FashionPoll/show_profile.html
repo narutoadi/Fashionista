@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+<head>
+	<title>Fashion Poll</title>
+	<link rel="stylesheet" href="{% static "FashionPoll/css/styleHome.css" %}" /> <!-- CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="{% static "FashionPoll/js/chart.js" %}"></script> <!-- JavaScript -->
+</head>
+<body>
+<h3>&nbsp &nbsp &nbsp<a href="/FashionPoll/"> Fashionista </a>&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp&nbsp &nbsp &nbsp <a href="/FashionPoll/home">Home</a>&nbsp &nbsp &nbsp<a href="/FashionPoll/user/{{ user.username }}">Profile</a>&nbsp &nbsp &nbsp <a href="/FashionPoll/rank-list">Rank-List</a>&nbsp &nbsp &nbsp <a href="/FashionPoll/logout">Logout</a>  </h3>
+<table border="1">
+	{% if user1_profile %}
+		<tr>
+			<td>{{ user1.first_name }} {{ user1.last_name }}</td>
+		</tr>
+		<tr>
+			<td><img src="{{ MEDIA_URL }}{{ user1_profile.profile_picture }}" alt="{{ user1.first_name }}'s profile picture" border=1 height=200px width=200px></img></td>
+		</tr>
+		<tr>
+			<td id="username" username="{{ user1.username }}"> Username: {{ user1.username }} </td>
+		</tr>
+		<tr>
+			<td> DOB: {{ user1_profile.dob }} </td>
+		</tr>
+		<tr>
+			<td> email-id: {{ user1.email }} </td>
+		</tr>
+		{% if user1_fashionista %}
+			<tr>
+				<td> <b>Fashionista Details</b> </td>
+			</tr>
+			<tr>
+				<td> <img src="{{ MEDIA_URL }}{{ user1_fashionista.fashionista_picture }}" alt="{{ user1.first_name }}'s fashionista picture" border=2 height=450px width=420px></img></td> </td>
+			</tr>
+			<tr>
+				<td> Likes: {{ user1_fashionista.likes }} </td>
+			</tr>
+			<tr>
+				<td> Views: {{ user1_fashionista.views }} </td>
+			</tr>
+			<tr>
+				<td> Rating: {{ user1_fashionista.rating }} </td>
+			</tr>
+			<tr>
+				<td><b id="xyz"> CLick me </b> <div id="container" style="width:100%; height:400px;"></div> </td>
+			</tr>
+		{% else %}
+			<tr>
+				<td> {{ user1.first_name }} is not a part of Fashionista-Competetion.</td>
+			</tr>
+		{% endif %}
+	{% endif %}
+</table>
+</body>
+</html>
