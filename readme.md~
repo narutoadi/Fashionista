@@ -1,5 +1,5 @@
 #Fashionista
-A Fashion poll web application based on django 1.9.5
+A Fashion poll web application based on django 1.9
 
 ###Pre-Requisites:
 1. python3
