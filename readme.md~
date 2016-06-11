@@ -8,12 +8,15 @@ A Fashion poll web application based on django 1.9.5
 ###How to run the project:
 1. Clone the repository on your local machine.
 2. Enter the project
-
-	cd CompeteFashion
-
+```shell
+cd CompeteFashion
+```
 3. Install the dependencies
+```shell
+cd CompeteFashion
+```
 
-	pip install -r requirments.txt
+	
 
 4. Run migrations
 
