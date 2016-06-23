@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 STATIC_PATH = os.path.join(BASE_DIR, 'static')
+SITE_ID = 1
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -33,11 +34,18 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'zinnia',
     'FashionPoll',
+    'django_comments',
+    'mptt',
+    'tagging',
+    'docutils',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -66,6 +74,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.media',
                 'django.core.context_processors.static',
+                'django.template.context_processors.i18n',
+                'zinnia.context_processors.version',
             ],
         },
     },
@@ -103,6 +113,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ZINNIA_ENTRY_CONTENT_TEMPLATES = [
+  ('zinnia/_short_entry_detail.html', 'Short entry template'),
+]
+ZINNIA_ENTRY_DETAIL_TEMPLATES = [
+    ('zinnia/fullwidth_entry_detail.html', 'Fullwidth template'),
+]
+ZINNIA_MARKUP_LANGUAGE = 'restructuredtext'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    'comparison': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'comparison',
+        'TIMEOUT': None,
+   }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/

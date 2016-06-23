@@ -17,8 +17,26 @@ from django.conf.urls import patterns, url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
+from zinnia.sitemaps import TagSitemap
+from zinnia.sitemaps import EntrySitemap
+from zinnia.sitemaps import CategorySitemap
+from zinnia.sitemaps import AuthorSitemap
+from django.contrib.sitemaps import views
+from zinnia.views.channels import EntryChannel
+
+
+sitemaps = {'tags': TagSitemap,
+            'blog': EntrySitemap,
+            'authors': AuthorSitemap,
+            'categories': CategorySitemap,}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^FashionPoll/', include('FashionPoll.urls')),
+    url(r'^weblog/', include('zinnia.urls')),
+    url(r'^comments/', include('django_comments.urls')),
+    url(r'^sitemap.xml$', views.index ,sitemaps),
+    url(r'^sitemap-(?P<section>.+)\.xml$', views.sitemap, sitemaps),
+    url(r'^weblog/$', EntryChannel.as_view(query='category:python OR category:django')),
+    url(r'^weblog/', include('zinnia.urls', namespace='zinnia')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
