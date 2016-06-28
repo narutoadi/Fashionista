@@ -1,12 +1,16 @@
 {% load i18n %}
-<ul class="{% if not entries %}no-{% endif %}entries-recent">
+<!--<div class="{% if not entries %}no-{% endif %}entries-random carousel-inner" role="listbox">-->
   {% for entry in entries %}
-  <li>
-    <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
-  </li>
+  <div class="item">
+  	<img src="{{ entry.image.url }}" alt="{{ entry.image_caption|default:entry.title }}" width="100%" height="345"/>
+  	<div class="carousel-caption">
+    <h1><a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a><h1>
+    <p></p>
+  	</div>
+  </div>
   {% empty %}
-  <li>
+  <div>
     {% trans "No entries yet." %}
-  </li>
+  </div>
   {% endfor %}
-</ul>
+<!--</div> -->

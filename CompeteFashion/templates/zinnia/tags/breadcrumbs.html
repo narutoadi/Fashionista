@@ -1,13 +1,13 @@
 <nav>
-  <ul class="breadcrumbs">
+  <ul class="horizontal">
     {% for crumb in breadcrumbs %}
-    <li>
+     / <li>
       {% if crumb.url %}
       <a href="{{ crumb.url }}" title="{{ crumb.name }}">{{ crumb.name }}</a>
       {% else %}
       {{ crumb.name }}
       {% endif %}
-    </li>
+    </li> 
     {% endfor %}
   </ul>
 </nav>

@@ -23,6 +23,7 @@ from zinnia.sitemaps import CategorySitemap
 from zinnia.sitemaps import AuthorSitemap
 from django.contrib.sitemaps import views
 from zinnia.views.channels import EntryChannel
+from filebrowser.sites import site
 
 
 sitemaps = {'tags': TagSitemap,
@@ -31,12 +32,12 @@ sitemaps = {'tags': TagSitemap,
             'categories': CategorySitemap,}
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^FashionPoll/', include('FashionPoll.urls')),
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^sitemap.xml$', views.index ,sitemaps),
     url(r'^sitemap-(?P<section>.+)\.xml$', views.sitemap, sitemaps),
-    url(r'^weblog/$', EntryChannel.as_view(query='category:python OR category:django')),
-    url(r'^weblog/', include('zinnia.urls', namespace='zinnia')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    url(r'^weblog/landing_page$', EntryChannel.as_view(query='',template_name='custom/template.html'), name='landing_page'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

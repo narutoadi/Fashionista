@@ -1,4 +1,5 @@
 {% load i18n %}
+<!--
 <ul class="{% if not entries %}no-{% endif %}entries-random">
   {% for entry in entries %}
   <li>
@@ -10,3 +11,13 @@
   </li>
   {% endfor %}
 </ul>
+-->
+<div class="{% if not entries %}no-{% endif %}entries-random carousel-inner" role="listbox" >
+{% for entry in entries %}
+<div class="item">
+<img src="{{ entry.image.url }}" alt="{{ entry.image_caption|default:entry.title }}" width="460" height="345">
+<div class="carousel-caption">
+<h1>{{ entry.title }}</h1>
+</div>
+{% endfor %}
+</div>

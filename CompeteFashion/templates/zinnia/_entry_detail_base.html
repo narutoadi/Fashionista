@@ -1,17 +1,35 @@
 {% load i18n %}
 {% load zinnia %}
-<article id="entry-{{ object.pk }}" class="hentry{% if object.featured %} featured{% endif %}" itemscope itemtype="http://schema.org/Article">
+{% load staticfiles %}
+<div>
+{% block entry-image %}
+    {% if object.image %}
+      {% if continue_reading %}
+     <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" >
+        {% endif %}
+   <!--     <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">-->
+          <div class="bg-img"><img src="{{ object.image.url }}" alt="{{ object.image_caption|default:object.title }}"/></div>
+     <!--     {% if object.image_caption %}
+          <figcaption itemprop="caption">{{ object.image_caption }}</figcaption>
+          {% endif %} -->
+     <!--   </figure> -->
+        {% if continue_reading %}
+      </a>
+      {% endif %}
+    {% endif %}
+    {% endblock entry-image %}
+
   {% block entry-header %}
-  <header class="entry-header">
+    <div class="title">
     {% block entry-title %}
-    <h2 class="entry-title" itemprop="name">
+    <h1 itemprop="name">
       <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark" itemprop="url">
         {{ object.title|widont }}
       </a>
-    </h2>
+    </h1>
     {% endblock entry-title %}
     {% block entry-info %}
-    <p class="entry-info">
+    <p>
       {% block entry-authors %}
       {% with authors=object.authors.all %}
       {% if authors|length %}
@@ -42,41 +60,25 @@
       {% endblock entry-categories %}
     </p>
     {% endblock entry-info %}
-    {% block entry-last-update %}
-    <p class="entry-last-update">
+    </div>
+    </div>
+    </header>
+  <button class="trigger" data-info="click-to-read-further"><span>Trigger</span></button>   
+
+ <!--   {% block entry-last-update %}
+    <p class="entry-last-update subline">
       {% trans "Last update on" %} <time class="updated" datetime="{{ object.last_update|date:"c" }}" itemprop="dateModified">{{ object.last_update|date:"DATE_FORMAT" }}</time>.
-    </p>
+    </p> 
     {% endblock entry-last-update %}
     {% block entry-creation-date %}
     <meta itemprop="dateCreated" content="{{ object.creation_date|date:"c" }}" />
     {% endblock entry-creation-date %}
-  </header>
   {% endblock entry-header %}
-
   {% block entry-body %}
   <div class="entry-body">
     {% block entry-word-count %}
     <meta itemprop="wordCount" content="{{ object.word_count }}" />
     {% endblock entry-word-count %}
-
-    {% block entry-image %}
-    {% if object.image %}
-    <div class="entry-image">
-      {% if continue_reading %}
-      <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark">
-        {% endif %}
-        <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-          <img src="{{ object.image.url }}" alt="{{ object.image_caption|default:object.title }}" itemprop="contentUrl" />
-          {% if object.image_caption %}
-          <figcaption itemprop="caption">{{ object.image_caption }}</figcaption>
-          {% endif %}
-        </figure>
-        {% if continue_reading %}
-      </a>
-      {% endif %}
-    </div>
-    {% endif %}
-    {% endblock entry-image %}
 
     {% block entry-lead %}
     {% if not continue_reading and object.lead %}
@@ -84,11 +86,17 @@
       {{ object.html_lead|safe }}
     </div>
     {% endif %}
-    {% endblock entry-lead %}
-
+    {% endblock entry-lead %} -->
+<article class="content">
     {% block entry-content %}
     <div class="entry-content" itemprop="articleBody">
-      {{ object_content|safe }}
+    	{{ object.lead }}
+      {{ object.content|safe }}
+      <div>
+      <div class="shareThis">
+</div>
+      </div>
+<div class="fb-comments" data-href="http://greygreen.co.in/" data-numposts="5"></div>
     </div>
     {% endblock entry-content %}
 
@@ -104,6 +112,7 @@
     {% endif %}
     {% endblock continue-reading %}
   </div>
+</article>
   {% endblock entry-body %}
 
   {% block entry-footer %}
@@ -121,7 +130,7 @@
       {% endfor %}
     </p>
     {% endblock entry-tags %}
-    {% block entry-shorturl %}
+<!--    {% block entry-shorturl %}
     <p class="entry-shorturl">
       <strong>{% trans "Short url" %}</strong> :
       <a href="{{ object.short_url }}"
@@ -130,8 +139,8 @@
         {{ object.short_url }}
       </a>
     </p>
-    {% endblock entry-shorturl %}
-    {% block entry-discussions %}
+    {% endblock entry-shorturl %} -->
+ <!--   {% block entry-discussions %}
     <p class="entry-discussions">
       <strong>{% trans "Discussions" %}</strong> :
       {% block entry-comments %}
@@ -175,7 +184,192 @@
       {% endwith %}
       {% endblock entry-trackbacks %}
     </p>
-    {% endblock entry-discussions %}
+    {% endblock entry-discussions %}-->
+    <div class="foooter">grey-info and logo</div>
   </footer>
   {% endblock entry-footer %}
-</article>
+  <script src="{% static "zinnia/theme/js/classie.js" %}"></script>
+    <script>
+      (function() {
+
+        // detect if IE : from http://stackoverflow.com/a/16657946    
+        var ie = (function(){
+          var undef,rv = -1; // Return value assumes failure.
+          var ua = window.navigator.userAgent;
+          var msie = ua.indexOf('MSIE ');
+          var trident = ua.indexOf('Trident/');
+
+          if (msie > 0) {
+            // IE 10 or older => return version number
+            rv = parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+          } else if (trident > 0) {
+            // IE 11 (or newer) => return version number
+            var rvNum = ua.indexOf('rv:');
+            rv = parseInt(ua.substring(rvNum + 3, ua.indexOf('.', rvNum)), 10);
+          }
+
+          return ((rv > -1) ? rv : undef);
+        }());
+
+
+        // disable/enable scroll (mousewheel and keys) from http://stackoverflow.com/a/4770179          
+        // left: 37, up: 38, right: 39, down: 40,
+        // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
+        var keys = [32, 37, 38, 39, 40], wheelIter = 0;
+
+        function preventDefault(e) {
+          e = e || window.event;
+          if (e.preventDefault)
+          e.preventDefault();
+          e.returnValue = false;  
+        }
+
+        function keydown(e) {
+          for (var i = keys.length; i--;) {
+            if (e.keyCode === keys[i]) {
+              preventDefault(e);
+              return;
+            }
+          }
+        }
+
+        function touchmove(e) {
+          preventDefault(e);
+        }
+
+        function wheel(e) {
+          // for IE 
+          //if( ie ) {
+            //preventDefault(e);
+          //}
+        }
+
+        function disable_scroll() {
+          window.onmousewheel = document.onmousewheel = wheel;
+          document.onkeydown = keydown;
+          document.body.ontouchmove = touchmove;
+        }
+
+        function enable_scroll() {
+          window.onmousewheel = document.onmousewheel = document.onkeydown = document.body.ontouchmove = null;  
+        }
+
+        var docElem = window.document.documentElement,
+          scrollVal,
+          isRevealed, 
+          noscroll, 
+          isAnimating,
+          container = document.getElementById( 'container' ),
+          trigger = container.querySelector( 'button.trigger' );
+
+        function scrollY() {
+          return window.pageYOffset || docElem.scrollTop;
+        }
+        
+        function scrollPage() {
+          scrollVal = scrollY();
+          
+          if( noscroll && !ie ) {
+            if( scrollVal < 0 ) return false;
+            // keep it that way
+            window.scrollTo( 0, 0 );
+          }
+
+          if( classie.has( container, 'notrans' ) ) {
+            classie.remove( container, 'notrans' );
+            return false;
+          }
+
+          if( isAnimating ) {
+            return false;
+          }
+          
+          if( scrollVal <= 0 && isRevealed ) {
+            toggle(0);
+          }
+          else if( scrollVal > 0 && !isRevealed ){
+            toggle(1);
+          }
+        }
+
+        function toggle( reveal ) {
+          isAnimating = true;
+          
+          if( reveal ) {
+            classie.add( container, 'modify' );
+          }
+          else {
+            noscroll = true;
+            disable_scroll();
+            classie.remove( container, 'modify' );
+          }
+
+          // simulating the end of the transition:
+          setTimeout( function() {
+            isRevealed = !isRevealed;
+            isAnimating = false;
+            if( reveal ) {
+              noscroll = false;
+              enable_scroll();
+            }
+          }, 1000 );
+        }
+
+        // refreshing the page...
+        var pageScroll = scrollY();
+        noscroll = pageScroll === 0;
+        
+        disable_scroll();
+        
+        if( pageScroll ) {
+          isRevealed = true;
+          classie.add( container, 'notrans' );
+          classie.add( container, 'modify' );
+        }
+        
+        window.addEventListener( 'scroll', scrollPage );
+        trigger.addEventListener( 'click', function() { toggle( 'reveal' ); } );
+      })();
+
+      $("div.shareThis").simpleSocialShare({
+
+  // url to share
+  url: "http://{{host}}{{ object.get_absolute_url }}",
+
+  // title to share
+  title: "{{ object.title }}",
+
+  // page description
+  description: "{{ object.lead }}",
+
+  // image to share
+  image: "",
+
+  // specify social networks
+  // facebook, <a href="http://www.jqueryscript.net/tags.php?/twitter/">twitter</a>, google, linkedin, pinterest, email, whatsapp, reddit
+  sites: "",
+
+  // horizontal or vertical button orientation
+  orientation: "horizontal", 
+
+  // button (shows a togglable share button)
+  // none (shows nothing)
+  // text (shows Share on: text before buttons)
+  shareType: "text", 
+
+  // only works with shareType of button
+  // determines if the button should be clicked when created
+  triggerButtonActiveState: false, 
+
+  // only works with shareType of button
+  // places the button on the left or right side of the social media icons
+  buttonSide: "left", 
+
+  // facebook developer app id
+  // gives you more control over what you can customize when sharing on FB
+  facebookAppId: "", 
+  
+});
+
+    </script>
+    <!-- For the demo ad only -->   

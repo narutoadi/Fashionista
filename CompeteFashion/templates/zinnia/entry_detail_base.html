@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load zinnia %}
 {% load comments %}
-
+{% load staticfiles %}
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block meta-description %}{{ object.excerpt|safe }}{% endblock meta-description %}
@@ -28,19 +28,29 @@
         href="{% url 'zinnia:entry_pingback_feed' year month day object.slug %}" />
   <link rel="alternate" type="application/rss+xml" title="{% blocktrans with object=object.title %}RSS feed of trackbacks on {{ object }}{% endblocktrans %}"
         href="{% url 'zinnia:entry_trackback_feed' year month day object.slug %}" />
+   <script src="//code.jquery.com/jquery.min.js"></script>
+<script src="{% static "zinnia/theme/js/simplesocialshare.js" %}"></script>
+<link rel="stylesheet" href="{% static "zinnia/theme/css/simplesocialshare.css" %}">
   {% endwith %}
 {% endblock link %}
 
 {% block body-class %}entry entry-{{ object.pk }}{% if object.featured %} featured{% endif %} year-{{ object.publication_date|date:"Y" }} month-{{ object.publication_date|date:"m" }} week-{{ object.publication_date|date:"W" }} day-{{ object.publication_date|date:"d" }}{% endblock body-class %}
 
 {% block content %}
+  <div id="container" class="container intro-effect-grid">
+      <header class="header">
+{% block entry-similar-entries %}
+  <div class="entry-similar">
+    {% get_similar_entries 6 %}
+  </div>
+  {% endblock entry-similar-entries %}
 
 {% block entry-content %}
   {% include object.content_template with object_content=object.html_content %}
 {% endblock entry-content %}
-
+</div>
 {% block entry-widgets %}
-<aside role="complementary" class="entry-widgets grid">
+<!--<aside role="complementary" class="entry-widgets">
   {% block entry-next-entry %}
   {% with next_entry=object.next_entry %}
   {% if next_entry %}
@@ -77,7 +87,7 @@
     <ul>
       {% for entry in entry_related %}
       <li>
-	<a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
+  <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
       </li>
       {% endfor %}
     </ul>
@@ -85,15 +95,10 @@
   {% endif %}
   {% endwith %}
   {% endblock entry-related-entries %}
-  {% block entry-similar-entries %}
-  <div class="entry-similar">
-    <h3>{% trans "Similar entries" %}</h3>
-    {% get_similar_entries %}
-  </div>
-  {% endblock entry-similar-entries %}
-</aside>
+  
+</aside> -->
 {% endblock entry-widgets %}
-
+<!--
 {% block entry-pingbacks %}
 <section id="pingbacks">
   <h3>{% trans "Pingbacks" %}</h3>
@@ -105,9 +110,9 @@
     <li id="pingback-{{ pingback.pk }}" class="pingback vcard {% cycle 'box1' 'box2' %}">
       {% block pingback-info %}
       <p class="pingback-info">
-	<a href="{{ pingback.url }}" rel="external nofollow"
+  <a href="{{ pingback.url }}" rel="external nofollow"
            class="fn url org">{{ pingback.name }}</a>
-	{% trans "on" context "on date" %}
+  {% trans "on" context "on date" %}
         <time class="pingback-published" datetime="{{ pingback.submit_date|date:"c" }}">
           {{ pingback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </time>
@@ -118,7 +123,7 @@
       {% endblock pingback-info %}
       {% block pingback-content %}
       <p class="pingback-content">
-	{{ pingback.comment }}
+  {{ pingback.comment }}
       </p>
       {% endblock pingback-content %}
     </li>
@@ -149,9 +154,9 @@
     <li id="trackback-{{ trackback.pk }}" class="trackback vcard {% cycle 'box1' 'box2' %}">
       {% block trackback-info %}
       <p class="trackback-info">
-	<a href="{{ trackback.url }}" rel="external nofollow"
+  <a href="{{ trackback.url }}" rel="external nofollow"
            class="fn url org">{{ trackback.name }}</a>
-	{% trans "on" context "on date" %}
+  {% trans "on" context "on date" %}
         <time class="trackback-published" datetime="{{ trackback.submit_date|date:"c" }}">
           {{ trackback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </time>
@@ -162,7 +167,7 @@
       {% endblock trackback-info %}
       {% block trackback-content %}
       <p class="trackback-content">
-	{{ trackback.comment }}
+  {{ trackback.comment }}
       </p>
       {% endblock trackback-content %}
     </li>
@@ -182,7 +187,7 @@
 </section>
 {% endif %}
 {% endblock entry-trackbacks %}
-
+<!--
 {% block entry-comments %}
 <section id="comments">
   <h3>{% trans "Comments" %}</h3>
@@ -199,13 +204,13 @@
       {% endblock comment-image %}
       {% block comment-info %}
       <p class="comment-info">
-	{% if comment.url %}
-	<a href="{{ comment.url }}" rel="external nofollow"
+  {% if comment.url %}
+  <a href="{{ comment.url }}" rel="external nofollow"
            class="fn url">{{ comment.name }}</a>
-	{% else %}
-	<span class="fn">{{ comment.name }}</span>
-	{% endif %}
-	{% trans "on" context "on date" %}
+  {% else %}
+  <span class="fn">{{ comment.name }}</span>
+  {% endif %}
+  {% trans "on" context "on date" %}
         <time class="comment-published" datetime="{{ comment.submit_date|date:"c" }}">
           {{ comment.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </time>
@@ -252,3 +257,4 @@
 </li>
 {% endif %}
 {% endblock admin-tools %}
+-->
