@@ -1,0 +1,9 @@
+Django==1.9.5
+pillow==2.6.1
+django-blog-zinnia==0.17
+django-ckeditor==5.0.3
+django-classy-tags==0.7.2
+django-filebrowser==3.7.1
+django-grapelli==2.8.1
+django-tagging==0.4.3
+zinnia-wysiwyy-ckeditor==1.3

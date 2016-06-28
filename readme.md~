@@ -13,17 +13,14 @@ cd CompeteFashion
 ```
 3. Install the dependencies
 ```shell
-cd CompeteFashion
+pip install -r requirements.txt
 ```
-
-	
-
 4. Run migrations
-
-	python3 manage.py migrate
-
+```shell
+python3 manage.py migrate
+```
 5. Run the development server
-
-	python3 manage.py runserver
-
+```shell
+python3 manage.py runserver
+```
 Browse the URL http://127.0.0.1:8000/FashionPoll/
