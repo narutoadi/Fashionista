@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.core import serializers
 from datetime import datetime
 import json
-import datetime
 # Create your views here.
 def index(request):
 	context_dict = {}
@@ -79,7 +78,7 @@ def home(request):
 	# To generate 2 images at load/reload
 	# Sort the fashionista in a random order
 	# remove the logged-in user from the list
-	fashionista_list = Fashionista.objects.all()
+	fashionista_list = Fashionista.objects.all().order_by('?')
 	flist1 = fashionista_list.exclude(user=request.user)
 
 	# Now we need to escape from already-diplayed pairs.
@@ -183,7 +182,7 @@ def like_picture(request):
 		unliked_id = request.GET['unliked']
 		unliked = User.objects.get(id = unliked_id)
 		pic_id = request.GET['pic_id1']
-		instance = Order(liker = liker, liked = liked, unliked = unliked, created_at = datetime.now())
+		instance = Order(liker = liker, liked = liked, unliked = unliked)
 		instance.save()
 	else:
 		print("dipchik")
@@ -212,7 +211,7 @@ def like_picture(request):
 	# To generate 2 images at load/reload
 	# Sort the fashionista in a random order
 	# remove the logged-in user from the list
-	fashionista_list = Fashionista.objects.all()
+	fashionista_list = Fashionista.objects.all().order_by('?')
 	flist1 = fashionista_list.exclude(user=request.user)
 
 	# Now we need to escape from already-diplayed pairs.

@@ -7,19 +7,26 @@ A Fashion poll web application based on django 1.9.5
 
 ###How to run the project:
 1. Clone the repository on your local machine.
+```shell
+git clone https://github.com/victorporof/Sublime-HTMLPrettify.git ~/.config/sublime-text-3/Packages/Sublime-HTMLPrettify
+```
 2. Enter the project
 ```shell
-cd CompeteFashion
+cd Fashionista
 ```
 3. Install the dependencies
 ```shell
 pip install -r requirements.txt
 ```
-4. Run migrations
+4. Enter the Django project
+```shell
+cd CompeteFashion
+```
+5. Run migrations
 ```shell
 python manage.py migrate
 ```
-5. Run the development server
+6. Run the development server
 ```shell
 python manage.py runserver
 ```
